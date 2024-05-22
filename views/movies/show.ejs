@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= foundMovie.name %>
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/CSS/show.css">
+    <script src="/JS/show.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h2 class="text-center bg-sec">
+        <%= foundMovie.title %> (<%= foundMovie.year %>)
+    </h2>
+    <div class="container mx-auto">
+        <div class="poster mx-auto"><img src=<%=foundMovie.img %> class="img-thumbnail mx-auto" alt="Poster"></div>
+        
+
+        <ul class="p-0">
+            <li>Directed By: <%= foundMovie.director %>
+            </li>
+            <li>Hero(s): <%= foundMovie.hero %>
+            </li>
+            <li>Main Villain: <%= foundMovie.villain %>
+            </li>
+            <li>Produced By: <%= foundMovie.producer %>
+            </li>
+            <li>IMDB Score: <%= foundMovie.imdb %>
+            </li>
+            <li>Cost: <%= foundMovie.budget %>
+            </li>
+            <li>Lifetime Collection: <%= foundMovie.earning %>
+            </li>
+            <a href="/movies"><button class="btn btn-warning">Back</button></a>
+            <a href="/movies/<%= foundMovie.id %>/edit"><button class="btn btn-primary">Edit</button></a>
+            <form id="deleteForm" action="/movies/<%= foundMovie.id %>?_method=delete" method="post" class="mt-2">
+                <button type="button" class="btn btn-danger" id="del">Delete</button>
+            </form>
+        </ul>
+    </div>
+    <script>
+        /*const delBtn = document.getElementById('del');
+        delBtn.addEventListener("click", function () {
+            //let val = confirm("Want to delete content?");
+            let val = confirm("Want to delete content?");
+            console.log(val);
+            */
+        const delBtn = document.getElementById('del');
+        delBtn.addEventListener("click", function () {
+            var confirmed = confirm("Are you sure you want to delete?");
+
+            if (confirmed) {
+                // If the user confirms, submit the form
+                document.getElementById('deleteForm').submit();
+            } else {
+                // If the user cancels, do nothing or provide feedback
+                console.log("Deletion canceled");
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

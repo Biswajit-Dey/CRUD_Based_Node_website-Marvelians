@@ -1,0 +1,17 @@
+img{
+    display: inline-block;
+    width: 4rem;
+}
+li{
+    display: inline;
+}
+.bg-pri{
+    background-color: #FF0000;
+}
+.text-col{
+    color: #FFD700;
+}
+.btn-center{
+    display: block;
+    margin: auto;
+}

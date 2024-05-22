@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Movie</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <section class="container shadow rounded p-3 my-3">
+        <h2 class="text-center">Enter Movie Details</h2>
+        <form action="/movies" method="post" class="mb-3 row g-3 needs-validation" novalidate>
+            <div class="mb-3 col-md-8">
+                <label for="title" class="form-label">Movie title</label>
+                <input type="text" name="title" id="title" class="form-control" placeholder="Movie Name" required>
+                <div class="valid-feedback">
+                    Keep an eye on spelling
+                </div>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label for="year" class="form-label">Year</label>
+                <input type="number" name="year" id="year" min="1980" max="2024" class="form-control" placeholder="released on" required>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="hero" class="form-label">Hero</label>
+                <input type="text" name="hero" id="hero" class="form-control" placeholder="hero(s)" required>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="villain" class="form-label">Villain</label>
+                <input type="text" name="villain" id="villain" class="form-control" placeholder="villain(s)" required>
+            </div>
+            <div class="mb-3 col-sm-6">
+                <label for="director" class="form-label">Directed By</label>
+                <input type="text" name="director" id="director" class="form-control" placeholder="Director" required>
+            </div>
+            <div class="mb-3 col-sm-6">
+                <label for="producer" class="form-label">Produced By</label>
+                <input type="text" name="producer" id="producer" class="form-control" placeholder="Producer" required>
+            </div>
+            <div class="mb-3 col-md-4 col-sm-6">
+                <label for="budget" class="form-label">Budget</label>
+                <input type="text" name="budget" id="budget" class="form-control" placeholder="Cost" required>
+            </div>
+            <div class="mb-3 col-md-4 col-sm-6">
+                <label for="earning" class="form-label">Collection</label>
+                <input type="text" name="earning" id="earning" class="form-control" placeholder="Collection" required>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label for="imdb" class="form-label">IMDB rating</label>
+                <input type="text" name="imdb" id="imdb" class="form-control" placeholder="imdb rating" required>
+            </div>
+            <div class="mb-3">
+                <label for="img" class="form-label">Poster</label>
+                <input type="text" name="img" id="img" class="form-control" placeholder="Image Link" required>
+            </div>
+
+            <button class="btn btn-success">Save</button>
+        </form>
+        <a href="/movies"><button class="btn btn-warning">Go Back</button></a>
+    </section>
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+</body>
+
+</html>

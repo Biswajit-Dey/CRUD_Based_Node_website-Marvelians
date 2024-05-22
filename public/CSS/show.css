@@ -1,0 +1,14 @@
+img {
+    display: block;
+    width: 20%;
+
+}
+
+ul {
+    list-style: none;
+    text-align: center;
+}
+
+.bg-sec {
+    background-color: #007ACC;
+}
