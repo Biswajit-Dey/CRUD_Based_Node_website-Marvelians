@@ -1,4 +1,5 @@
 const User = require('../../models/userModel');
+const NewID = require('../../models/otpLog');
 const nodemailer = require('nodemailer');
 
 const userRegisterControl = async (req, res, next) => {
@@ -36,13 +37,25 @@ const userRegisterControl = async (req, res, next) => {
                     console.log('Email sent: ' + info.response);
                 }
             });
-            console.log(email)
+            console.log(`OTP sent to ${email}`)
+            const existOTP = await NewID.findOne({email})
+            if(existOTP){
+                const id = existOTP.id;
+                await NewID.findByIdAndDelete(id);
+            }
+            const user = new NewID({
+                email : email,
+                otp : rand,
+                password : password
+            })
+            await user.save();
 
-            req.flash("otp", rand);
+
+            //req.flash("otp", rand);
             req.flash("fname", fname);
             req.flash("lname", lname);
             req.flash("email", email);
-            req.flash("password", password);
+            //req.flash("password", password);
             res.redirect('/user/otp');
         } catch (error) {
             next(error)

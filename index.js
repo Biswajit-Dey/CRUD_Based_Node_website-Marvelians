@@ -1,5 +1,5 @@
 const express = require('express');
-const dotenv = require ("dotenv");
+const dotenv = require("dotenv");
 const path = require('path');
 const session = require('express-session');
 const flash = require("connect-flash")
@@ -16,6 +16,8 @@ let port = 80;
 const mongodb = require("./config/conn")
 mongodb.MongoDbConnection();
 const User = require('./models/userModel');
+const NewID = require('./models/otpLog');
+const AsyncWrap = require('./Utils/AsyncWrap');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -81,15 +83,16 @@ app.get("/user/otp", (req, res) => {
   res.render('movies/otp');
 })
 
-app.post("/user/otp", (req, res) => {
-  const actual = req.body.otpSent;
+app.post("/user/otp", AsyncWrap(async (req, res) => {
   const value = req.body.otp;
   const fname = req.body.fname;
   const lname = req.body.lname;
   const email = req.body.email;
-  const password = req.body.password;
-  console.log(`actual: ${actual}, otp: ${value}, fname:${fname}`);
-  if (actual == value) {
+  const user = await NewID.findOne({ email });
+  const actualOTP = user.otp;
+  const password = user.password;
+  console.log(`actual: ${actualOTP}, otp: ${value}, fname:${fname}`);
+  if (actualOTP == value) {
     User.create({
       firstname: fname,
       lastname: lname,
@@ -101,7 +104,7 @@ app.post("/user/otp", (req, res) => {
   else {
     throw new AppError("OTP verification Unsuccessful", 400);
   }
-})
+}))
 
 app.use("/movies", movieRoute);
 app.use("/user", userRoute);
