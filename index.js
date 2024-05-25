@@ -5,6 +5,7 @@ const session = require('express-session');
 const flash = require("connect-flash")
 const methodOverride = require('method-override');
 const nodemailer = require('nodemailer');
+//const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser');
 const AppError = require('./Utils/AppError');
 const app = express();
@@ -15,9 +16,11 @@ let port = 80;
 
 const mongodb = require("./config/conn")
 mongodb.MongoDbConnection();
+
 const User = require('./models/userModel');
 const NewID = require('./models/otpLog');
 const AsyncWrap = require('./Utils/AsyncWrap');
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -88,10 +91,10 @@ app.post("/user/otp", AsyncWrap(async (req, res) => {
   const fname = req.body.fname;
   const lname = req.body.lname;
   const email = req.body.email;
-  const user = await NewID.findOne({ email });
-  const actualOTP = user.otp;
-  const password = user.password;
-  console.log(`actual: ${actualOTP}, otp: ${value}, fname:${fname}`);
+  const temp = await NewID.findOne({ email });
+  const actualOTP = temp.otp;
+  const password = temp.password;
+  console.log(`actual OTP: ${actualOTP}, OTP Given: ${value}, user:${fname}`);
   if (actualOTP == value) {
     User.create({
       firstname: fname,
@@ -99,9 +102,11 @@ app.post("/user/otp", AsyncWrap(async (req, res) => {
       email: email,
       password: password
     })
+    await NewID.findByIdAndDelete(temp.id)
     res.redirect("/movies");
   }
   else {
+    await NewID.findByIdAndDelete(temp.id)
     throw new AppError("OTP verification Unsuccessful", 400);
   }
 }))

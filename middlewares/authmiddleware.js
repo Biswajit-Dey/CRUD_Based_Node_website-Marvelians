@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
         req.flash("fail","you need to login first");
         res.redirect("/user/admin")
       } else {
-        const validate = jwt.verify(token, "thisShouldBeanENV");
+        const validate = jwt.verify(token, process.env.JWT_SECRET);
         console.log(validate);
         next();
       }
