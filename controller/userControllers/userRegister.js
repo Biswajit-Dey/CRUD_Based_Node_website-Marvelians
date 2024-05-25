@@ -24,7 +24,7 @@ const userRegisterControl = async (req, res, next) => {
                 }
             });
             var mailOptions = {
-                from: 'bdeyxarcade2k23@gmail.com',
+                from: process.env.SENDER_MAIL,
                 to: `${email}`,
                 subject: 'Email Verification',
                 text: `Your one Time verification Code to sign up in Marvelians is: ${rand}`

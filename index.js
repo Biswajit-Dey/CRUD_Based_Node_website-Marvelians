@@ -72,14 +72,6 @@ app.use((req, res, next) => {
   next();
 })
 
-// var transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'bdeyxarcade2k23@gmail.com',
-//     pass: 'glbk wbjz bxjl xmuo'
-//   }
-// });
-
 // ROUTES LINK SETUP==>>>
 
 app.get("/user/otp", (req, res) => {
