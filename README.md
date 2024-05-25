@@ -16,7 +16,7 @@
 </ul>
 <br>
 <h3>Code setup</h3>
-1.In console run `npm istall` from root directory
+1.In console run `npm install` from root directory
 
 2.Add a .env file in the root directory then Add these following keys in that file:
   JWT_SECRET = "_ANY STRING_"
